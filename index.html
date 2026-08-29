@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&#10244;&#10246;&#10247; LFILS658 HOME PAGE &#10296;&#10288;&#10272;</title>
+    <link rel="icon" href="" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,300&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body style="padding: 0px; margin: 0px;">
+    <button
+      type="button"
+      class="cfe-button"
+      id="settingsBtn"
+      onclick="document.getElementById('cfe-settings-window').style.visibility = 'visible';"
+    >
+      &#9881;&#65039;
+    </button>
+    <br /><br />
+
+    <div id="greeting" class="imgText">Good <span id="tod"></span></div>
+    <br />
+    <div id="time" class="imgText"></div>
+    <div id="date" class="imgText"></div>
+    <br />
+    <div id="weather-output" style="font-family: 'Courier New', Courier, monospace;" class="imgText">
+      Loading location and weather data...
+    </div>
+    <br /><br />
+
+    <div id="search-container">
+      <form>
+        <input type="search" id="searchInput" placeholder="Search..." autofocus />
+      </form>
+      <div id="results"></div>
+    </div>
+
+    <div id="cfe-settings-window">
+      <div id="cfe-settings">
+        <button
+          type="button"
+          class="cfe-button"
+          style="text-align: right;"
+          onclick="document.getElementById('cfe-settings-window').style.visibility = 'hidden';"
+        >
+          Close
+        </button>
+
+        <h1>Settings</h1>
+
+        <h2>Search Engine</h2>
+
+        <form id="cfe-search-form">
+          <label for="cfe-search-engine">Search Engine:</label>
+
+          <select name="searchEngine" id="cfe-search-engine" class="cfe-select">
+            <option value="Google">Google</option>
+            <option value="DuckDuckGo">DuckDuckGo</option>
+            <option value="Bing">Bing</option>
+          </select>
+          <br />
+          <input type="submit" class="cfe-submit" value="Save Search Engine" />
+        </form>
+
+        <h2>Bookmarks</h2>
+
+        <div id="cfe-form-rows"></div>
+
+        <p>
+          <button type="button" class="cfe-button" id="cfe-add-row-button">Add Bookmark</button>
+          <button type="button" class="cfe-button" id="cfe-save-button">Save Bookmarks</button>
+          <button type="button" class="cfe-button" id="cfe-clear-button">Clear All</button>
+          <span id="cfe-status"></span>
+        </p>
+
+        <h3>Saved Bookmarks</h3>
+
+        <textarea id="cfe-csv-output" class="cfe-textarea"></textarea>
+      </div>
+    </div>
+
+    <script src="./start.js"></script>
+  </body>
+</html>
+

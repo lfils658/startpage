@@ -1,6 +1,6 @@
 # Startpage
 ### A simple yet elegant homepage
-Search your favorite bookmarks or the web using the search bar.
+Search your favorite bookmarks or the web using a unified search bar.
 [Try it out!](https://lfils658.github.io/startpage/)
 
 ## Features

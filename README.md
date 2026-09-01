@@ -1,6 +1,7 @@
+![Startpage icon](./icon.ico)
 # Startpage
 ### A simple yet elegant homepage
-Search your favorite bookmarks or the web using a unified search bar.
+With Unified Search, you can search your bookmarks, search the web, or type any URL directly. 
 [Try it out!](https://lfils658.github.io/startpage/)
 
 ## Features
@@ -15,6 +16,7 @@ Search your favorite bookmarks or the web using a unified search bar.
 ## Credits
  - Background images via [Lorem Picsum](https://picsum.photos/)
  - Weather data via [Open-Meteo](https://open-meteo.com/)
+ - Icons via [Font Awesome](https://fontawesome.com/)
 
 ## Intstallation
  1. Set your browser's start page to `https://lfils658.github.io/startpage/`

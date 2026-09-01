@@ -152,7 +152,32 @@ function getSelectedSearchEngine() {
     : 'Google';
 }
 
+function isLikelyUrl(value) {
+  const trimmed = value.trim();
+
+  if (!trimmed || /\s/.test(trimmed)) {
+    return false;
+  }
+
+  if (/^(?:[a-z][a-z0-9+.-]*:\/\/)/i.test(trimmed)) {
+    return true;
+  }
+
+  return /^(?:localhost|127(?:\.\d{1,3}){3}|(?:[a-z0-9-]+\.)+[a-z]{2,})(?::\d+)?(?:[/?#].*)?$/i.test(trimmed);
+}
+
+function openUrl(value) {
+  const trimmed = value.trim();
+  const url = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  window.open(url, '_self');
+}
+
 function openSearch(query) {
+  if (isLikelyUrl(query)) {
+    openUrl(query);
+    return;
+  }
+
   const engine = getSelectedSearchEngine();
   const url = (searchEngines[engine] || searchEngines.Google) + encodeURIComponent(query);
   window.open(url, '_self');
@@ -248,6 +273,11 @@ if (searchInput) {
     if (event.key === 'Enter') {
       event.preventDefault();
 
+      if (isLikelyUrl(query)) {
+        openUrl(query);
+        return;
+      }
+
       if (selectedIndex === matches.length) {
         openSearch(query);
         return;
@@ -292,9 +322,12 @@ function updateResults() {
   `).join('');
 
   const engineName = getSelectedSearchEngine();
+  const directUrlQuery = searchInput.value.trim();
+  const urlActionLabel = isLikelyUrl(directUrlQuery) ? 'Open URL' : `Search ${engineName}`;
+
   results.innerHTML += `
     <div class="result duck-result" data-index="${matches.length}">
-      ${escapeHTML(searchInput.value.trim())} - Search ${engineName}
+      ${escapeHTML(directUrlQuery)} - ${escapeHTML(urlActionLabel)}
     </div>
   `;
 
@@ -327,7 +360,9 @@ function updateSelection() {
 function openSelectedResult() {
   const query = searchInput.value.trim();
 
-  if (selectedIndex === matches.length) {
+  if (isLikelyUrl(query)) {
+    openUrl(query);
+  } else if (selectedIndex === matches.length) {
     openSearch(query);
   } else if (matches[selectedIndex]) {
     openRecord(matches[selectedIndex]);

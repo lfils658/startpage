@@ -1,3 +1,13 @@
+function checkViewport() {
+  if (window.innerWidth > window.innerHeight) {
+    document.body.style.backgroundImage = "url('https://picsum.photos/1280/720/')";
+  } else {
+    document.body.style.backgroundImage = "url('https://picsum.photos/720/1280/')";
+  }
+}
+
+window.addEventListener('load', checkViewport);
+
 function updateClock() {
   const now = new Date();
 
@@ -91,16 +101,6 @@ if (navigator.geolocation) {
 } else {
   fetchWeather(DEFAULT_LAT, DEFAULT_LON, DEFAULT_LABEL);
 }
-
-function checkViewport() {
-  if (window.innerWidth > window.innerHeight) {
-    document.body.style.backgroundImage = "url('https://picsum.photos/1280/720/?blur=2')";
-  } else {
-    document.body.style.backgroundImage = "url('https://picsum.photos/720/1280/?blur=2')";
-  }
-}
-
-window.addEventListener('load', checkViewport);
 
 const bookmarkCookieName = 'cfe_csvFormData';
 const searchEngineCookieName = 'cfe_selectedSearchEngine';

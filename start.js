@@ -166,10 +166,25 @@ function isLikelyUrl(value) {
   return /^(?:localhost|127(?:\.\d{1,3}){3}|(?:[a-z0-9-]+\.)+[a-z]{2,})(?::\d+)?(?:[/?#].*)?$/i.test(trimmed);
 }
 
-function openUrl(value) {
+function normalizeUrl(value) {
   const trimmed = value.trim();
-  const url = /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
-  window.open(url, '_self');
+
+  if (!trimmed) {
+    return '';
+  }
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+
+  return `https://${trimmed}`;
+}
+
+function openUrl(value) {
+  const url = normalizeUrl(value);
+  if (url) {
+    window.open(url, '_self');
+  }
 }
 
 function openSearch(query) {
@@ -371,10 +386,14 @@ function openSelectedResult() {
 
 function openRecord(record) {
   if (record.URL) {
-    window.open(record.URL, '_self');
-  } else {
-    openSearch(record.NAME || record.ALTNAME || '');
+    const url = normalizeUrl(record.URL);
+    if (url) {
+      window.open(url, '_self');
+      return;
+    }
   }
+
+  openSearch(record.NAME || record.ALTNAME || '');
 }
 
 function escapeHTML(value) {

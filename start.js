@@ -107,7 +107,9 @@ const searchEngineCookieName = 'cfe_selectedSearchEngine';
 const searchEngines = {
   Google: 'https://www.google.com/search?q=',
   DuckDuckGo: 'https://duckduckgo.com/?q=',
-  Bing: 'https://www.bing.com/search?q='
+  Bing: 'https://www.bing.com/search?q=',
+  Brave: 'https://search.brave.com/search?q=',
+  Yahoo: 'https://search.yahoo.com/search?p='
 };
 
 let records = [];

@@ -16,7 +16,7 @@ body::after {
   left: -10%;
   width: 200vw;
   height: 400px;
-  -webkit-filter: blur(40px);
+  -webkit-filter: blur(90px);
   filter: blur(40px);
   background: rgba(0, 0, 0, 0.4);
   z-index: -1;

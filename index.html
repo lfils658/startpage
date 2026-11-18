@@ -30,18 +30,19 @@
 
     <div id="cfe-settings-window">
       <div id="cfe-settings">
-        <button
-          type="button"
-          class="cfe-button"
-          style="text-align: right;"
-          onclick="document.getElementById('cfe-settings-window').style.visibility = 'hidden';"
-        >
-          Close
-        </button>
-
-        <h1>Settings</h1>
-
-        <h2>Search Engine</h2>
+        <div id="cfe-settings-header">
+          <div>
+          	<div>
+              &nbsp;
+            </div>
+          	<div style="text-align: center;">
+              <h1>Settings</h1>
+            </div>
+          	<div style="text-align: right;">
+              <button type="button" class="cfe-button" style="text-align: right;" onclick="document.getElementById('cfe-settings-window').style.visibility = 'hidden';"> Close </button>
+            </div>
+          </div>
+        </div>
 
         <form id="cfe-search-form">
           <label for="cfe-search-engine">Search Engine:</label>
@@ -69,13 +70,14 @@
           <button type="button" class="cfe-button" id="cfe-clear-button">Clear All</button>
           <span id="cfe-status"></span>
         </p>
-
-        <h3>Saved Bookmarks</h3>
-
-        <textarea id="cfe-csv-output" class="cfe-textarea"></textarea>
+        <h3>Import/Export Bookmarks</h3>
         <p>
-          <button type="button" id="cfe-export-button" class="cfe-button"> Download CSV </button> or <input type="file" class="cfe-button" id="cfe-import-file" accept=".csv" />
+          <button type="button" id="cfe-export-button" class="cfe-button"> Export CSV </button> <input type="file" value="Import CSV" class="cfe-button" id="cfe-import-file" accept=".csv" />
         </p>
+        <p>Format: "NAME,ALTNAME,URL"</p>
+
+        <!--<textarea id="cfe-csv-output" class="cfe-textarea"></textarea>-->
+        
       </div>
     </div>
       <button

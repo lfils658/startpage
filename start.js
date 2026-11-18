@@ -102,8 +102,8 @@ if (navigator.geolocation) {
   fetchWeather(DEFAULT_LAT, DEFAULT_LON, DEFAULT_LABEL);
 }
 
-const bookmarkCookieName = 'cfe_csvFormData';
-const searchEngineCookieName = 'cfe_selectedSearchEngine';
+const BOOKMARK_STORAGE_KEY = 'cfe_csvFormData';
+const SEARCH_ENGINE_STORAGE_KEY = 'cfe_selectedSearchEngine';
 const searchEngines = {
   Google: 'https://www.google.com/search?q=',
   DuckDuckGo: 'https://duckduckgo.com/?q=',
@@ -126,30 +126,15 @@ function setSearchStatus(message) {
   }
 }
 
-function getCookie(name) {
-  const cookies = document.cookie ? document.cookie.split('; ') : [];
-
-  for (const cookie of cookies) {
-    const separator = cookie.indexOf('=');
-
-    if (separator === -1) {
-      continue;
-    }
-
-    const key = cookie.substring(0, separator);
-    const value = cookie.substring(separator + 1);
-
-    if (key === name) {
-      return decodeURIComponent(value);
-    }
-  }
-
-  return null;
-}
-
 function getSelectedSearchEngine() {
-  const savedEngine = getCookie(searchEngineCookieName);
-  return Object.prototype.hasOwnProperty.call(searchEngines, savedEngine)
+  const savedEngine = localStorage.getItem(
+    SEARCH_ENGINE_STORAGE_KEY
+  );
+
+  return Object.prototype.hasOwnProperty.call(
+    searchEngines,
+    savedEngine
+  )
     ? savedEngine
     : 'Google';
 }
@@ -200,8 +185,9 @@ function openSearch(query) {
   window.open(url, '_self');
 }
 
-function loadRecordsFromCookie() {
-  const savedData = getCookie(bookmarkCookieName);
+function loadRecordsFromStorage() {
+  const savedData =
+    localStorage.getItem(BOOKMARK_STORAGE_KEY);
 
   if (!savedData) {
     records = [];
@@ -237,7 +223,7 @@ function loadRecordsFromCookie() {
 }
 
 if (searchInput) {
-  loadRecordsFromCookie();
+  loadRecordsFromStorage();
 
   searchInput.addEventListener('input', updateResults);
 
@@ -504,48 +490,21 @@ function updateCsv() {
   csvOutput.value = lines.join('\n');
 }
 
-function setCookie(name, value) {
-  document.cookie =
-    `${name}=${encodeURIComponent(value)}; ` +
-    `path=/; max-age=${cookieLifetime}; SameSite=Lax`;
-}
-
-function getCookieBookmark(name) {
-  const cookies = document.cookie.split('; ');
-
-  for (const cookie of cookies) {
-    const separator = cookie.indexOf('=');
-
-    if (separator === -1) {
-      continue;
-    }
-
-    const key = cookie.substring(0, separator);
-    const value = cookie.substring(separator + 1);
-
-    if (key === name) {
-      return decodeURIComponent(value);
-    }
-  }
-
-  return null;
-}
-
-function deleteCookie(name) {
-  document.cookie = `${name}=; path=/; max-age=0; SameSite=Lax`;
-}
-
 function saveBookmarks() {
   const data = JSON.stringify(getFormData());
 
-  setCookie(bookmarkCookieName, data);
+  localStorage.setItem(
+    BOOKMARK_STORAGE_KEY,
+    data
+  );
+
   if (bookmarkStatus) {
     bookmarkStatus.textContent = 'Bookmarks saved';
   }
 }
 
 function loadBookmarks() {
-  const savedData = getCookieBookmark(bookmarkCookieName);
+  const savedData = localStorage.getItem(BOOKMARK_STORAGE_KEY);
 
   if (!savedData) {
     addRow();
@@ -578,14 +537,14 @@ function loadBookmarks() {
 }
 
 function saveSearchEngine() {
-  setCookie(searchEngineCookieName, searchEngine.value);
+  localStorage.setItem(SEARCH_ENGINE_STORAGE_KEY, searchEngine.value);
   if (bookmarkStatus) {
     bookmarkStatus.textContent = 'Search engine saved';
   }
 }
 
 function loadSearchEngine() {
-  const savedSearchEngine = getCookieBookmark(searchEngineCookieName);
+  const savedSearchEngine = localStorage.getItem(SEARCH_ENGINE_STORAGE_KEY);
 
   if (!savedSearchEngine) {
     return;
@@ -600,7 +559,7 @@ function loadSearchEngine() {
 
 function clearAll() {
   formRows.innerHTML = '';
-  deleteCookie(bookmarkCookieName);
+  localStorage.removeItem(BOOKMARK_STORAGE_KEY);
   addRow();
   updateCsv();
 
@@ -629,3 +588,71 @@ if (formRows && csvOutput && bookmarkStatus && searchEngine && searchForm) {
   loadSearchEngine();
   loadBookmarks();
 }
+
+const importFile =
+  document.getElementById('cfe-import-file');
+
+if (importFile) {
+  importFile.addEventListener('change', event => {
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = e => {
+      const csv = e.target.result;
+
+      const rows = csv
+        .split(/\r?\n/)
+        .filter(line => line.trim());
+
+      rows.shift(); // remove header
+
+      const bookmarks = [];
+
+      for (const row of rows) {
+        const cols = row
+          .split(',')
+          .map(v => v.replace(/^"|"$/g, ''));
+
+        bookmarks.push({
+          name: cols[0] || '',
+          altName: cols[1] || '',
+          url: cols[2] || ''
+        });
+      }
+
+      formRows.innerHTML = '';
+
+      bookmarks.forEach(bookmark => {
+        addRow(
+          bookmark.name,
+          bookmark.altName,
+          bookmark.url
+        );
+      });
+
+      updateCsv();
+      saveBookmarks();
+
+      if (bookmarkStatus) {
+        bookmarkStatus.textContent =
+          `Imported ${bookmarks.length} bookmarks`;
+      }
+
+      loadRecordsFromStorage();
+    };
+
+    reader.readAsText(file);
+  });
+}
+/* localStorage.setItem(
+  'startpage',
+  JSON.stringify({
+    searchEngine: searchEngine.value,
+    bookmarks: getFormData()
+  })
+);
+*/
+

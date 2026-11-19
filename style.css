@@ -182,12 +182,14 @@ body::after {
   width: 25px;
 }
 
-#cfe-import-flile{
- padding: 9px 14px;
+#file-upload-btn {
+  padding: 9px 14px;
   border-radius: 10px;
   cursor: pointer;
   border: 0 solid;
   font-family: 'Courier New', Courier, monospace;
+  background: dodgerblue;
+  color: white;
 }
   
 .cfe-textarea {

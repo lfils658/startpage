@@ -172,7 +172,7 @@ body::after {
 }
 
 #cfe-close-btn {
-  text-align: right;
+  text-align: center;
   border-radius: 100%;
   border: none;
   color: white;

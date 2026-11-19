@@ -92,6 +92,7 @@ body::after {
   mix-blend-mode: add;
   text-align: center;
 }
+
 #settingsBtn {
   position: fixed;
   bottom: 20px;
@@ -107,8 +108,6 @@ body::after {
   backdrop-filter: blur(33px);
   background-blend-mode: overlay;
 }
-
-
 
 #cfe-settings-window {
   visibility: hidden;
@@ -176,7 +175,7 @@ body::after {
   border-radius: 100%;
   border: none;
   color: white;
-  background: red;
+  background: crimson;
   height: 25px;
   line-height: 10px;
   width: 25px;

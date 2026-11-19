@@ -396,7 +396,7 @@ function escapeHTML(value) {
 
 const formRows = document.getElementById('cfe-form-rows');
 const csvOutput = document.getElementById('cfe-csv-output');
-const bookmarkStatus = document.getElementById('cfe-status');
+markStatus = document.getElementById('cfe-status');
 const searchEngine = document.getElementById('cfe-search-engine');
 const searchForm = document.getElementById('cfe-search-form');
 
@@ -504,45 +504,85 @@ function saveBookmarks() {
 }
 
 function loadBookmarks() {
-  const savedData = localStorage.getItem(BOOKMARK_STORAGE_KEY);
+
+  if (!formRows) {
+    console.error('cfe-form-rows not found');
+    return;
+  }
+
+  formRows.innerHTML = '';
+
+  const savedData =
+    localStorage.getItem(BOOKMARK_STORAGE_KEY);
+
+  console.log('Loading bookmarks:', savedData);
 
   if (!savedData) {
     addRow();
-    updateCsv();
     return;
   }
 
   try {
+
     const rows = JSON.parse(savedData);
 
+    console.log('Parsed rows:', rows);
+
     if (Array.isArray(rows) && rows.length > 0) {
+
       rows.forEach(item => {
-        addRow(item.name || '', item.altName || '', item.url || '');
+
+        addRow(
+          item.name || '',
+          item.altName || '',
+          item.url || ''
+        );
+
       });
+
     } else {
+
       addRow();
+
     }
 
-    updateCsv();
     if (bookmarkStatus) {
-      bookmarkStatus.textContent = 'Bookmarks loaded';
+      bookmarkStatus.textContent =
+        `Loaded ${rows.length} bookmarks`;
     }
-  } catch {
+
+  } catch (err) {
+
+    console.error(err);
+
     addRow();
-    updateCsv();
+
     if (bookmarkStatus) {
-      bookmarkStatus.textContent = 'Could not load bookmarks';
+      bookmarkStatus.textContent =
+        'Could not load bookmarks';
     }
   }
 }
 
 function saveSearchEngine() {
-  localStorage.setItem(SEARCH_ENGINE_STORAGE_KEY, searchEngine.value);
+
+  if (!searchEngine) return;
+
+  localStorage.setItem(
+    SEARCH_ENGINE_STORAGE_KEY,
+    searchEngine.value
+  );
+
+  console.log(
+    'Saved search engine:',
+    searchEngine.value
+  );
+
   if (bookmarkStatus) {
-    bookmarkStatus.textContent = 'Search engine saved';
+    bookmarkStatus.textContent =
+      `Search engine set to ${searchEngine.value}`;
   }
 }
-
 function loadSearchEngine() {
   const savedSearchEngine = localStorage.getItem(SEARCH_ENGINE_STORAGE_KEY);
 
@@ -568,26 +608,43 @@ function clearAll() {
   }
 }
 
-if (formRows && csvOutput && bookmarkStatus && searchEngine && searchForm) {
-  document.getElementById('cfe-add-row-button').addEventListener('click', () => {
-    addRow();
-    updateCsv();
-    saveBookmarks();
-  });
+window.addEventListener('DOMContentLoaded', () => {
 
-  document.getElementById('cfe-save-button').addEventListener('click', saveBookmarks);
-  document.getElementById('cfe-clear-button').addEventListener('click', clearAll);
+  const addButton = document.getElementById('cfe-add-row-button');
+  const saveButton = document.getElementById('cfe-save-button');
+  const clearButton = document.getElementById('cfe-clear-button');
 
-  searchEngine.addEventListener('change', saveSearchEngine);
+  if (addButton) {
+    addButton.addEventListener('click', () => {
+      addRow();
+      updateCsv();
+      saveBookmarks();
+    });
+  }
 
-  searchForm.addEventListener('submit', event => {
-    event.preventDefault();
-    saveSearchEngine();
-  });
+  if (saveButton) {
+    saveButton.addEventListener('click', saveBookmarks);
+  }
+
+  if (clearButton) {
+    clearButton.addEventListener('click', clearAll);
+  }
+
+  if (searchEngine) {
+    searchEngine.addEventListener('change', saveSearchEngine);
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener('submit', event => {
+      event.preventDefault();
+      saveSearchEngine();
+      return false;
+    });
+  }
 
   loadSearchEngine();
   loadBookmarks();
-}
+});
 
 const importFile =
   document.getElementById('cfe-import-file');

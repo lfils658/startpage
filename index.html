@@ -34,7 +34,7 @@
           	<div>
               &nbsp;
             </div>
-          	<div style="text-align: center;">
+          	<div style="text-align: center; padding: none;">
               <h1>Settings</h1>
             </div>
           	<div style="text-align: right;">
@@ -54,23 +54,23 @@
           </select>
           <br />
           <p>
-            <input type="submit" class="cfe-submit" value="Save Search Engine" />
+            <input type="submit" class="cfe-submit btn" value="Save Search Engine" />
           </p>
         </form>
 
         <h2>Bookmarks</h2>
         <div id="cfe-form-rows"></div>
         <p>
-          <button type="button" class="cfe-button" id="cfe-add-row-button">Add Bookmark</button>
-          <button type="button" class="cfe-button" id="cfe-save-button">Save Bookmarks</button>
-          <button type="button" class="cfe-button" id="cfe-clear-button">Clear All</button>
+          <button type="button" class="cfe-button btn" id="cfe-add-row-button">Add Bookmark</button>
+          <button type="button" class="cfe-button btn" id="cfe-save-button">Save Bookmarks</button>
+          <button type="button" class="cfe-button btnDanger" id="cfe-clear-button">Clear All</button>
           <span id="cfe-status"></span>
         </p>
         <h3>Import/Export Bookmarks</h3>
         <p>
-          <button type="button" id="cfe-export-button" class="cfe-button"> Export CSV </button> <input type="file" value="Import CSV" id="cfe-import-file" accept=".csv" />
+          <button type="button" id="cfe-export-button btn" class="cfe-button"> Export CSV </button> <input type="file" value="Import CSV" id="cfe-import-file" class="cfe-button btn" accept=".csv" />
         </p>
-        <p>Format: "NAME,ALTNAME,URL"</p>
+        <p style="padding: none;">Format: "NAME,ALTNAME,URL"</p>
 
         <!--<textarea id="cfe-csv-output" class="cfe-textarea"></textarea>-->
         

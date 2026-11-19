@@ -190,16 +190,6 @@ body::after {
   font-family: 'Courier New', Courier, monospace;
 }
   
-.cfe-close-btn {
-  display: inline; 
-  padding: 0; 
-  border: 0; 
-  text-decoration: underline; 
-  cursor: pointer; 
-  background: transparent; 
-  color: currentColor;
-}
-  
 .cfe-textarea {
   width: 100%;
   height: 220px;

@@ -182,7 +182,7 @@ body::after {
   width: 25px;
 }
 
-#file-upload-button {
+input[type=file]::file-selector-button {
   padding: 9px 14px;
   border-radius: 10px;
   cursor: pointer;

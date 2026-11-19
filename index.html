@@ -38,7 +38,7 @@
               <h1>Settings</h1>
             </div>
           	<div style="text-align: right;">
-              <button type="button" class="cfe-close-button" style="text-align: right;" onclick="document.getElementById('cfe-settings-window').style.visibility = 'hidden';"> &#128473; </button>
+              <button type="button" id="cfe-close-btn" onclick="document.getElementById('cfe-settings-window').style.visibility = 'hidden';"> &#128473; </button>
             </div>
         </div>
 
@@ -68,7 +68,7 @@
         </p>
         <h3>Import/Export Bookmarks</h3>
         <p>
-          <button type="button" id="cfe-export-button btn" class="cfe-button"> Export CSV </button> <input type="file" value="Import CSV" id="cfe-import-file" class="cfe-button btn" accept=".csv" />
+          <button type="button" id="cfe-export-button" class="cfe-button btn"> Export CSV </button> <input type="file" value="Import CSV" id="cfe-import-file" class="cfe-button btn" accept=".csv" />
         </p>
         <p style="padding: none;">Format: "NAME,ALTNAME,URL"</p>
 

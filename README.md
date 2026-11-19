@@ -9,6 +9,7 @@ With the Unified Search, you can search your bookmarks, search the web, or type 
  - Customize search engine (Google, Bing, or DuckDuckGo)
  - Current date/time display
  - Current weather for your location (Location permission required)
+ - Your bookmarks and search engine selection are stored locally.
 
 ## Intstallation
  1. Set your browser's start page to `https://lfils658.github.io/startpage/`
@@ -17,9 +18,6 @@ With the Unified Search, you can search your bookmarks, search the web, or type 
 ## Customization
  1. Customize your search. On the start page, click the settings icon and select your search engine of choice from the dropdown menu.
  2. Add your bookmarks via the settings menu on the start page. Set a NAME and ALTNAME for every URL that you input.
-
-## Privacy-Focused
- - Your bookmarks and search engine selection are stored locally via a cookie.
 
 ## Credits
  - Background images via [Lorem Picsum](https://github.com/DMarby/picsum-photos)

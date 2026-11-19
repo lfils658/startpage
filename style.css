@@ -165,7 +165,8 @@ body::after {
   color: white;
 }
 
-.btnDanger {
+.btnDanger, 
+.cfe-remove-button {
   background: crimson;
   color: white;
 }

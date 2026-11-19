@@ -6,10 +6,10 @@ With the Unified Search, you can search your bookmarks, search the web, or type 
 
 ## Features
  - Import bookmarks
- - Customize search engine (Google, Bing, or DuckDuckGo)
+ - Customize search engine (Google, DuckDuckGo, Bing, Brave Search, or Yahoo!)
  - Current date/time display
  - Current weather for your location (Location permission required)
- - Your bookmarks and search engine selection are stored locally.
+ - Your bookmarks and search engine selection are stored locally
 
 ## Intstallation
  1. Set your browser's start page to `https://lfils658.github.io/startpage/`

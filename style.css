@@ -108,6 +108,8 @@ body::after {
   background-blend-mode: overlay;
 }
 
+
+
 #cfe-settings-window {
   visibility: hidden;
   position: fixed;
@@ -157,6 +159,27 @@ body::after {
   cursor: pointer;
   border: 0 solid;
   font-family: 'Courier New', Courier, monospace;
+}
+
+.btn {
+  background: dodgerblue;
+  color: white;
+}
+
+.btnDanger {
+  background: crimson;
+  color: white;
+}
+
+#cfe-close-btn {
+  text-align: right;
+  border-radius: 100%;
+  border: none;
+  color: white;
+  background: red;
+  height: 25px;
+  line-height: 10px;
+  width: 25px;
 }
 
 #cfe-import-flile{

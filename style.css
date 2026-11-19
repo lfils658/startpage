@@ -181,7 +181,7 @@ body::after {
   width: 25px;
 }
 
-#file-upload-btn {
+#file-upload-button {
   padding: 9px 14px;
   border-radius: 10px;
   cursor: pointer;
